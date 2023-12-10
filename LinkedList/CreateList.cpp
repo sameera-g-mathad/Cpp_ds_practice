@@ -23,7 +23,7 @@ class LinkedList{
         // You can initialize last to first here, but when first is assigned to new variable, 
         //last must again point to first as in the code below
         //last = first;
-        if(first == NULL)
+        if(first == NULL && length>0)
         {
             first = new Node<T>(a[0]);
             // necessary
@@ -71,6 +71,47 @@ class LinkedList{
         display_backward_recursion(traverser->next);
         cout<<traverser->data<<' ';
     }
+    int count_node()
+    {
+        int count=0;
+        Node<T> *traverser = first;
+        while(traverser)
+        {
+            count++;
+            traverser=traverser->next;
+        }
+        traverser = NULL;
+        return count;
+    }
+    int count_node_recursive(Node<T> *traverser)
+    {
+        if(!traverser)
+            return 0;
+        return count_node_recursive(traverser->next)+1;
+    }
+    T max_node_value()
+    {
+        T max = 0;
+        Node<T> *traverser = first;
+        while(traverser)
+        {
+            if(max<traverser->data)
+            {
+                max = traverser->data;
+            }
+            traverser=traverser->next;
+        }
+        return max;
+    }
+    T max_node_recursive(Node<T> *traverser)
+    {
+        if(!traverser)
+        {
+            return 0;
+        }
+        T x = max_node_recursive(traverser->next);
+        return x>traverser->data ? x : traverser->data;
+    }
 };
 
 int main()
@@ -85,9 +126,12 @@ int main()
         cin>>array[i];
     }
     LinkedList<int> list(array,length);
-    list.display();
+    //list.display();
     Node<int> *p_dis_rec = list.returnFirst();
-    list.display_forward_recursion(p_dis_rec);
-    list.display_backward_recursion(p_dis_rec);
+    //list.display_forward_recursion(p_dis_rec);
+    //list.display_backward_recursion(p_dis_rec);
+    cout<<"Number of nodes is "<<list.count_node()<<endl;
+    cout<<"Number of nodes is "<<list.count_node_recursive(p_dis_rec)<<endl;
+    cout<<"Max element in the list is "<<list.max_node_recursive(p_dis_rec)<<endl;
     return 0;
 }
