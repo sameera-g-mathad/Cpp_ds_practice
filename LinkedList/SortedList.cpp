@@ -77,6 +77,18 @@ public:
         traverser = NULL;
         cout << endl;
     }
+    void reverse()
+    {
+        Node<T> *previous=NULL,*current=NULL,*further=first;
+        while(further)
+        {
+            current = further;
+            further = further->next;
+            current.next = previous;
+            previous = current;
+        }
+        first = previous;
+    }
 };
 
 int main()

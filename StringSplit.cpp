@@ -3,9 +3,7 @@
 Still need to look once again and make it workable using OOP.
 */
 
-
-
-
+// I believe this works in o(n).
 #include <iostream>
 
 using namespace std;
