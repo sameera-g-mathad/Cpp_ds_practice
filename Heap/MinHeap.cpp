@@ -22,6 +22,26 @@ class MinHeap
             index = parent;
         }
     }
+    void deleteHeap(int n)
+    {
+        swap(0, n);
+        int i = 0, j = 2 * i + 1;
+        while (j < n - 1)
+        {
+            if (this->a[j] > this->a[j + 1])
+            {
+                j = j + 1;
+            }
+            if (this->a[i] > this->a[j])
+            {
+                swap(i, j);
+                i = j;
+                j = 2 * i;
+            }
+            else
+                break;
+        }
+    }
 
 public:
     MinHeap(int size)
@@ -36,6 +56,7 @@ public:
     }
     void display()
     {
+        cout << '\n';
         for (int i = 0; i < this->length; i++)
         {
             cout << this->a[i] << " ";
@@ -48,6 +69,13 @@ public:
         for (int i = 1; i < this->length; i++)
         {
             this->minHeap(i);
+        }
+    }
+    void heapsort()
+    {
+        for (int i = this->length - 1; i > 0; i--)
+        {
+            deleteHeap(i);
         }
     }
 };
@@ -65,8 +93,9 @@ int main()
         cin >> data;
         mH.assign(data);
     }
-    mH.display();
     mH.createHeap();
+    mH.heapsort();
+    cout << "Elements in non-increasing order:\n";
     mH.display();
     return 0;
 }
